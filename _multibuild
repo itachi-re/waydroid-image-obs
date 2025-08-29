@@ -1,0 +1,6 @@
+<multibuild>
+  <flavor>lineage-20-vanilla</flavor>
+  <flavor>lineage-20-gapps</flavor>
+  <flavor>lineage-18-vanilla</flavor>
+  <flavor>lineage-18-gapps</flavor>
+</multibuild>

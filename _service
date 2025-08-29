@@ -1,0 +1,16 @@
+<services>
+  <service name="tar_scm">
+    <param name="url">https://github.com/itachi-re/waydroid-image-obs.git</param>
+    <param name="scm">git</param>
+    <param name="revision">main</param>
+  </service>
+
+  <service name="extract_file">
+    <param name="archive">*.tar</param>
+    <param name="files">*/waydroid-image.spec */_multibuild</param>
+  </service>
+
+  <service name="multibuild"/>
+
+  <service name="download_files" mode="serveronly"/>
+</services>
