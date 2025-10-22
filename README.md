@@ -71,8 +71,9 @@ The `_service` file configures OBS to:
 Install the Waydroid image packages from your OBS repository:
 
 ```bash
-# Add the OBS repository (example - replace with actual repo)
-zypper addrepo https://download.opensuse.org/repositories/home:your-username/Your_Distribution/ your-waydroid
+# Add the OBS repository 
+zypper addrepo https://download.opensuse.org/repositories/home:itachi_re/openSUSE_Tumbleweed/home:itachi_re.repo
+zypper refresh
 
 # Install desired flavor
 zypper install waydroid-image-lineage-20-gapps
