@@ -2,6 +2,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/itachi-re/waydroid-image-obs-packager/update-images.yml?style=flat-square)](https://github.com/itachi-re/waydroid-image-obs/actions)
 [![Open Build Service](https://img.shields.io/badge/OBS-Package-blue?style=flat-square&logo=openbuildservice)](https://build.opensuse.org/package/show/home:itachi_re/waydroid-image)
+[![build result](https://build.opensuse.org/projects/home:itachi_re/packages/waydroid-image/badge.svg?type=default)](https://build.opensuse.org/package/show/home:itachi_re/waydroid-image)
 
 This project automatically builds and packages the latest [Waydroid](https://waydro.id/) system and vendor images as RPM packages for compatible Linux distributions. It's designed to work with the Open Build Service (OBS) and uses GitHub Actions to keep the image URLs current.
 
