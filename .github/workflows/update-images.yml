@@ -10,6 +10,7 @@ on:
     paths:
       - 'update_waydroid_latest.py'
       - '.github/workflows/update-images.yml'
+      - 'waydroid-image.spec.template' # Trigger if template changes
 
 jobs:
   update:
@@ -27,6 +28,15 @@ jobs:
       with:
         python-version: '3.x'
     
+    - name: Rename spec to template
+      run: |
+        if [ -f "waydroid-image.spec" ] && [ ! -f "waydroid-image.spec.template" ]; then
+          echo "Moving waydroid-image.spec to waydroid-image.spec.template"
+          mv waydroid-image.spec waydroid-image.spec.template
+        else
+          echo "Template file already exists or spec file not found."
+        fi
+        
     - name: Run update script
       run: |
         python3 update_waydroid_latest.py
@@ -45,8 +55,8 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add -A
-        git commit -m "Update Waydroid image URLs to latest versions
+        git add waydroid-image.spec waydroid-urls.json
+        git commit -m "Automated: Update Waydroid image URLs and version
 
         Auto-update by GitHub Actions
         Date: $(date -u +'%Y-%m-%d %H:%M UTC')"
