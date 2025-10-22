@@ -4,9 +4,9 @@ This file is auto-generated and updated by a GitHub Action.
 
 Do not edit manually.
 
-Auto-generated on: @TIMESTAMP@
+Auto-generated on: 2025-10-22T05:38:53.329124
 
-Version: @VERSION@
+Version: 20251011
 
 %global _waydroid_image_dir %{_datadir}/waydroid-extra/images
 
@@ -32,7 +32,7 @@ Define package details based on flavor
 %endif
 
 Name:           waydroid-image-%{_flavor}
-Version:        @VERSION@
+Version:        20251011
 Release:        0
 Summary:        %{flavor_descr} images for Waydroid
 License:        Apache-2.0
@@ -41,19 +41,19 @@ BuildArch:      noarch
 
 Source URLs - these are replaced by the update script
 
-Source0:        @SYS_VANILLA_X86_64_20@
-Source1:        @SYS_GAPPS_X86_64_20@
-Source2:        @VENDOR_X86_64_20@
-Source3:        @SYS_VANILLA_ARM64_20@
-Source4:        @SYS_GAPPS_ARM64_20@
-Source5:        @VENDOR_ARM64_20@
+Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250823-VANILLA-waydroid_x86_64-system.zip/download
+Source1:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250809-GAPPS-waydroid_x86_64-system.zip/download
+Source2:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20250809-MAINLINE-waydroid_x86_64-vendor.zip/download
+Source3:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20251011-VANILLA-waydroid_arm64-system.zip/download
+Source4:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20250809-GAPPS-waydroid_arm64-system.zip/download
+Source5:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20250809-MAINLINE-waydroid_arm64-vendor.zip/download
 
-Source10:       @SYS_VANILLA_X86_64_18@
-Source11:       @SYS_GAPPS_X86_64_18@
-Source12:       @VENDOR_X86_64_18@
-Source13:       @SYS_VANILLA_ARM64_18@
-Source14:       @SYS_GAPPS_ARM64_18@
-Source15:       @VENDOR_ARM64_18@
+Source10:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-VANILLA-waydroid_x86_64-system.zip/download
+Source11:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-GAPPS-waydroid_x86_64-system.zip/download
+Source12:       https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-18.1-20250628-MAINLINE-waydroid_x86_64-vendor.zip/download
+Source13:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-VANILLA-waydroid_arm64-system.zip/download
+Source14:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-GAPPS-waydroid_arm64-system.zip/download
+Source15:       https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-18.1-20250628-MAINLINE-waydroid_arm64-vendor.zip/download
 
 %description
 %{summary}.
