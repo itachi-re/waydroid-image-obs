@@ -2,15 +2,15 @@
 """
 Waydroid Image URL Updater
 Updates the spec file with the latest Waydroid image URLs from SourceForge
-by parsing the HTML directory listings.
+by parsing the HTML directory listings using curl to avoid 403 errors.
 """
 
 import os
 import re
 import sys
 import json
-import urllib.request
-import urllib.parse
+import subprocess
+import shlex
 from datetime import datetime
 
 # Configuration
@@ -18,9 +18,12 @@ SPEC_FILE_TEMPLATE = "waydroid-image.spec.template"
 SPEC_FILE_OUTPUT = "waydroid-image.spec"
 SOURCEFORGE_BASE = "https://sourceforge.net"
 WAYDROID_FILES_BASE = f"{SOURCEFORGE_BASE}/projects/waydroid/files/images"
+# A standard browser user-agent
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
 # SourceForge directory structure and regex patterns
 # Format: "PLACEHOLDER": ("path/to/directory", r"filename-regex-pattern")
+# Updated to use MAINLINE vendor for all builds as requested.
 IMAGE_DIRS = {
     # System images
     "SYS_VANILLA_X86_64_20": ("system/lineage/waydroid_x86_64", r"lineage-20.0-\d{8}-VANILLA-waydroid_x86_64-system.zip"),
@@ -34,27 +37,31 @@ IMAGE_DIRS = {
 
     # Vendor images
     "VENDOR_X86_64_20": ("vendor/waydroid_x86_64", r"lineage-20.0-\d{8}-MAINLINE-waydroid_x86_64-vendor.zip"),
-    "VENDOR_ARM64_20": ("vendor/waydroid_arm64", r"lineage-20.0-\d{8}-HALIUM_13-waydroid_arm64-vendor.zip"), # Prefer HALIUM 13 for L20
+    "VENDOR_ARM64_20": ("vendor/waydroid_arm64", r"lineage-20.0-\d{8}-MAINLINE-waydroid_arm64-vendor.zip"), # Use MAINLINE
     "VENDOR_X86_64_18": ("vendor/waydroid_x86_64", r"lineage-18.1-\d{8}-MAINLINE-waydroid_x86_64-vendor.zip"),
-    "VENDOR_ARM64_18": ("vendor/waydroid_arm64", r"lineage-18.1-\d{8}-HALIUM_11-waydroid_arm64-vendor.zip"), # Prefer HALIUM 11 for L18
+    "VENDOR_ARM64_18": ("vendor/waydroid_arm64", r"lineage-18.1-\d{8}-MAINLINE-waydroid_arm64-vendor.zip"), # Use MAINLINE
 }
 
 def fetch_directory_listing(path):
-    """Fetch and parse SourceForge directory listing HTML"""
+    """Fetch and parse SourceForge directory listing HTML using curl"""
     url = f"{WAYDROID_FILES_BASE}/{path}/"
     print(f"  Fetching {url}")
     try:
-        # Set a user-agent to avoid potential blocks
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req) as response:
-            if response.status != 200:
-                print(f"  Error: HTTP {response.status}")
-                return ""
-            return response.read().decode('utf-8')
-    except Exception as e:
-        print(f"  Error fetching {url}: {e}")
+        # Use curl to bypass anti-bot measures
+        cmd = ["curl", "-L", "-A", USER_AGENT, url]
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"  Error fetching {url} with curl: {e}")
+        print(f"  STDERR: {e.stderr}")
         return ""
+    except FileNotFoundError:
+        print("  Error: 'curl' command not found. Please install curl.")
+        sys.exit(1)
+    except Exception as e:
+        print(f"  An unexpected error occurred: {e}")
+        return ""
+
 
 def find_latest_file(directory, pattern_regex):
     """Find the latest file matching pattern in directory"""
