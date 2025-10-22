@@ -2,7 +2,7 @@
 """
 Waydroid Image URL Updater
 Updates the spec file with the latest Waydroid image URLs from SourceForge
-using the JSON API.
+by parsing the HTML directory listings.
 """
 
 import os
@@ -20,85 +20,83 @@ SOURCEFORGE_BASE = "https://sourceforge.net"
 WAYDROID_FILES_BASE = f"{SOURCEFORGE_BASE}/projects/waydroid/files/images"
 
 # SourceForge directory structure and regex patterns
+# Format: "PLACEHOLDER": ("path/to/directory", r"filename-regex-pattern")
 IMAGE_DIRS = {
     # System images
-    "SYS_VANILLA_X86_64_20": "system/lineage/waydroid_x86_64/lineage-20.0-.*-VANILLA-waydroid_x86_64-system.zip",
-    "SYS_GAPPS_X86_64_20": "system/lineage/waydroid_x86_64/lineage-20.0-.*-GAPPS-waydroid_x86_64-system.zip",
-    "SYS_VANILLA_ARM64_20": "system/lineage/waydroid_arm64/lineage-20.0-.*-VANILLA-waydroid_arm64-system.zip",
-    "SYS_GAPPS_ARM64_20": "system/lineage/waydroid_arm64/lineage-20.0-.*-GAPPS-waydroid_arm64-system.zip",
-    "SYS_VANILLA_X86_64_18": "system/lineage/waydroid_x86_64/lineage-18.1-.*-VANILLA-waydroid_x86_64-system.zip",
-    "SYS_GAPPS_X86_64_18": "system/lineage/waydroid_x86_64/lineage-18.1-.*-GAPPS-waydroid_x86_64-system.zip",
-    "SYS_VANILLA_ARM64_18": "system/lineage/waydroid_arm64/lineage-18.1-.*-VANILLA-waydroid_arm64-system.zip",
-    "SYS_GAPPS_ARM64_18": "system/lineage/waydroid_arm64/lineage-18.1-.*-GAPPS-waydroid_arm64-system.zip",
+    "SYS_VANILLA_X86_64_20": ("system/lineage/waydroid_x86_64", r"lineage-20.0-\d{8}-VANILLA-waydroid_x86_64-system.zip"),
+    "SYS_GAPPS_X86_64_20": ("system/lineage/waydroid_x86_64", r"lineage-20.0-\d{8}-GAPPS-waydroid_x86_64-system.zip"),
+    "SYS_VANILLA_ARM64_20": ("system/lineage/waydroid_arm64", r"lineage-20.0-\d{8}-VANILLA-waydroid_arm64-system.zip"),
+    "SYS_GAPPS_ARM64_20": ("system/lineage/waydroid_arm64", r"lineage-20.0-\d{8}-GAPPS-waydroid_arm64-system.zip"),
+    "SYS_VANILLA_X86_64_18": ("system/lineage/waydroid_x86_64", r"lineage-18.1-\d{8}-VANILLA-waydroid_x86_64-system.zip"),
+    "SYS_GAPPS_X86_64_18": ("system/lineage/waydroid_x86_64", r"lineage-18.1-\d{8}-GAPPS-waydroid_x86_64-system.zip"),
+    "SYS_VANILLA_ARM64_18": ("system/lineage/waydroid_arm64", r"lineage-18.1-\d{8}-VANILLA-waydroid_arm64-system.zip"),
+    "SYS_GAPPS_ARM64_18": ("system/lineage/waydroid_arm64", r"lineage-18.1-\d{8}-GAPPS-waydroid_arm64-system.zip"),
 
     # Vendor images
-    "VENDOR_X86_64_20": "vendor/waydroid_x86_64/lineage-20.0-.*-MAINLINE-waydroid_x86_64-vendor.zip",
-    "VENDOR_ARM64_20": "vendor/waydroid_arm64/lineage-20.0-.*-HALIUM_13-waydroid_arm64-vendor.zip", # Prefer HALIUM 13 for L20
-    "VENDOR_X86_64_18": "vendor/waydroid_x86_64/lineage-18.1-.*-MAINLINE-waydroid_x86_64-vendor.zip",
-    "VENDOR_ARM64_18": "vendor/waydroid_arm64/lineage-18.1-.*-HALIUM_11-waydroid_arm64-vendor.zip", # Prefer HALIUM 11 for L18
+    "VENDOR_X86_64_20": ("vendor/waydroid_x86_64", r"lineage-20.0-\d{8}-MAINLINE-waydroid_x86_64-vendor.zip"),
+    "VENDOR_ARM64_20": ("vendor/waydroid_arm64", r"lineage-20.0-\d{8}-HALIUM_13-waydroid_arm64-vendor.zip"), # Prefer HALIUM 13 for L20
+    "VENDOR_X86_64_18": ("vendor/waydroid_x86_64", r"lineage-18.1-\d{8}-MAINLINE-waydroid_x86_64-vendor.zip"),
+    "VENDOR_ARM64_18": ("vendor/waydroid_arm64", r"lineage-18.1-\d{8}-HALIUM_11-waydroid_arm64-vendor.zip"), # Prefer HALIUM 11 for L18
 }
 
-def fetch_directory_json(path):
-    """Fetch all file listings from SourceForge JSON API, handling pagination."""
-    all_files = []
-    page = 1
-    while True:
-        url = f"{WAYDROID_FILES_BASE}/{path}/files.json?page={page}"
-        print(f"  Fetching {url}")
-        try:
-            with urllib.request.urlopen(url) as response:
-                if response.status != 200:
-                    print(f"  Error: HTTP {response.status}")
-                    break
-                data = json.load(response)
-                
-                if 'files' not in data or not data['files']:
-                    break # No more files
-                    
-                all_files.extend(data['files'])
-                
-                # Check pagination
-                if page >= data.get('pagination', {}).get('total_pages', 1):
-                    break
-                page += 1
-                
-        except Exception as e:
-            print(f"  Error fetching {url}: {e}")
-            return [] # Return empty on error
-            
-    print(f"  Found {len(all_files)} total files in {path}")
-    return all_files
+def fetch_directory_listing(path):
+    """Fetch and parse SourceForge directory listing HTML"""
+    url = f"{WAYDROID_FILES_BASE}/{path}/"
+    print(f"  Fetching {url}")
+    try:
+        # Set a user-agent to avoid potential blocks
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req) as response:
+            if response.status != 200:
+                print(f"  Error: HTTP {response.status}")
+                return ""
+            return response.read().decode('utf-8')
+    except Exception as e:
+        print(f"  Error fetching {url}: {e}")
+        return ""
 
-def find_latest_file(directory, pattern):
-    """Find the latest file matching pattern in directory using JSON data."""
-    files = fetch_directory_json(directory)
-    if not files:
+def find_latest_file(directory, pattern_regex):
+    """Find the latest file matching pattern in directory"""
+    html = fetch_directory_listing(directory)
+    if not html:
         return None
 
-    regex_pattern = pattern.split('/')[-1] # Get just the filename pattern
-    regex_pattern = regex_pattern.replace('*', '.*').replace('?', '.')
-    regex_pattern = f"^{regex_pattern}$"
+    # Regex to find all .zip download links
+    # This captures the relative path, e.g., /projects/waydroid/files/images/.../file.zip
+    all_links = re.findall(r'href="([^"]+\.zip)/download"', html)
     
+    if not all_links:
+        print(f"  No .zip links found in directory: {directory}")
+        return None
+
     matching_files = []
-    for file in files:
-        if re.match(regex_pattern, file['name'], re.IGNORECASE):
-            matching_files.append(file)
-            
+    compiled_regex = re.compile(f"^{pattern_regex}$", re.IGNORECASE)
+    
+    for link_path in all_links:
+        filename = link_path.split('/')[-1]
+        
+        if compiled_regex.match(filename):
+            # Extract date for sorting
+            date_match = re.search(r'(\d{8})', filename)
+            if date_match:
+                date_str = date_match.group(1)
+                full_url = f"{SOURCEFORGE_BASE}{link_path}/download"
+                matching_files.append((date_str, full_url))
+            else:
+                print(f"  Warning: Matched file {filename} has no date.")
+                
     if not matching_files:
-        print(f"  No files matching pattern: {pattern}")
+        print(f"  No files matching pattern: {pattern_regex}")
         return None
         
-    # Sort by timestamp (most recent first)
-    matching_files.sort(key=lambda x: x['timestamp'], reverse=True)
+    # Sort by date (most recent first)
+    matching_files.sort(key=lambda x: x[0], reverse=True)
     
-    latest_file = matching_files[0]['name']
-    print(f"  Latest match: {latest_file}")
+    latest_url = matching_files[0][1] # Get the URL of the newest file
+    print(f"  Latest match: {latest_url.split('/')[-2]}")
     
-    return latest_file
-
-def get_download_url(directory, filename):
-    """Construct the download URL for a file."""
-    return f"{WAYDROID_FILES_BASE}/{directory}/{filename}/download"
+    return latest_url
 
 def extract_version_from_files(file_urls):
     """Extract version (date) from the latest files."""
@@ -141,7 +139,9 @@ def update_spec_file(image_urls, version, timestamp):
                     updated_count += 1
                     print(f"  Replaced {placeholder}")
                 else:
-                    print(f"  Warning: No URL found for {placeholder}. Leaving it as is.")
+                    # If a URL wasn't found, replace placeholder with a comment
+                    content = content.replace(placeholder, f"# {key} - Not Found")
+                    print(f"  Warning: No URL found for {placeholder}. Commenting out.")
             else:
                 print(f"  Warning: Placeholder {placeholder} not found in template")
                 
@@ -160,31 +160,30 @@ def main():
     """Main function"""
     print("=== Waydroid Image URL Updater ===")
     
-    # Rename waydroid-image.spec to waydroid-image.spec.template if it exists
-    if os.path.exists("waydroid-image.spec") and not os.path.exists(SPEC_FILE_TEMPLATE):
-        print(f"Renaming 'waydroid-image.spec' to '{SPEC_FILE_TEMPLATE}' to use as template.")
-        os.rename("waydroid-image.spec", SPEC_FILE_TEMPLATE)
+    # Check if template file exists, if not, rename .spec
+    if not os.path.exists(SPEC_FILE_TEMPLATE) and os.path.exists(SPEC_FILE_OUTPUT):
+         print(f"Template file '{SPEC_FILE_TEMPLATE}' not found.")
+         print(f"Renaming '{SPEC_FILE_OUTPUT}' to '{SPEC_FILE_TEMPLATE}' to use as template.")
+         os.rename(SPEC_FILE_OUTPUT, SPEC_FILE_TEMPLATE)
+    elif not os.path.exists(SPEC_FILE_TEMPLATE):
+        print(f"ERROR: '{SPEC_FILE_TEMPLATE}' not found. Please create it.")
+        print("Your 'waydroid-image.spec' file in the repo should be this template.")
+        sys.exit(1)
 
     # Find latest image URLs
     print("\n=== Scanning SourceForge for latest images ===")
     image_urls = {}
     
-    for key, pattern in IMAGE_DIRS.items():
+    for key, (directory, pattern) in IMAGE_DIRS.items():
         print(f"\nSearching for {key}...")
         
-        # Extract directory
-        directory = '/'.join(pattern.split('/')[:-1])
-        
         # Find the latest file
-        latest_file = find_latest_file(directory, pattern)
-        
-        if latest_file:
-            url = get_download_url(directory, latest_file)
-            image_urls[key] = url
-            print(f"  URL: {url}")
+        latest_url = find_latest_file(directory, pattern)
+        image_urls[key] = latest_url
+        if latest_url:
+            print(f"  URL: {latest_url}")
         else:
             print(f"  WARNING: No file found for {key}")
-            image_urls[key] = None
     
     # Extract version from the latest files
     version = extract_version_from_files(image_urls)
@@ -218,3 +217,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
