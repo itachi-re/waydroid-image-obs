@@ -1,10 +1,6 @@
 {
   "version": "20251011",
-<<<<<<< HEAD
-  "timestamp": "2025-10-23T16:50:22.290801",
-=======
-  "timestamp": "2025-10-23T23:02:35.678008",
->>>>>>> bfdfaf0 (Automated: Refresh Waydroid image URLs)
+  "timestamp": "2025-10-23T17:08:29.022173",
   "urls": {
     "SYS_VANILLA_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250823-VANILLA-waydroid_x86_64-system.zip/download",
     "SYS_GAPPS_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250809-GAPPS-waydroid_x86_64-system.zip/download",

@@ -1,10 +1,6 @@
 # This file is auto-generated and updated by a GitHub Action.
 # Do not edit manually.
-<<<<<<< HEAD
-# Auto-generated on: 2025-10-23T16:50:22.290801
-=======
-# Auto-generated on: 2025-10-23T23:02:35.678008
->>>>>>> bfdfaf0 (Automated: Refresh Waydroid image URLs)
+# Auto-generated on: 2025-10-23T17:08:29.022173
 
 %global _waydroid_image_dir %{_datadir}/waydroid-extra/images
 
