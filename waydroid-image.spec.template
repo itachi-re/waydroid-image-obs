@@ -62,21 +62,44 @@ Waydroid to use.
 %install
 mkdir -p %{buildroot}%{_waydroid_image_dir}
 
+# Create a temporary directory to extract into,
+# so we can reliably rename the file.
+%global _tmpdir %{buildroot}/tmp-waydroid
+mkdir -p %{_tmpdir}
+
 # Install the correct files based on the flavor
 %if "%{?_flavor}" == "lineage-20-gapps"
-unzip -o %{SOURCE1} system.img -d %{buildroot}%{_waydroid_image_dir}
-unzip -o %{SOURCE2} vendor.img -d %{buildroot}%{_waydroid_image_dir}
+unzip -oj %{SOURCE1} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/system.img
+
+unzip -oj %{SOURCE2} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/vendor.img
+
 %elseif "%{?_flavor}" == "lineage-20-vanilla"
-unzip -o %{SOURCE0} system.img -d %{buildroot}%{_waydroid_image_dir}
-unzip -o %{SOURCE2} vendor.img -d %{buildroot}%{_waydroid_image_dir}
+unzip -oj %{SOURCE0} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/system.img
+
+unzip -oj %{SOURCE2} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/vendor.img
+
 %elseif "%{?_flavor}" == "lineage-18-gapps"
-unzip -o %{SOURCE11} system.img -d %{buildroot}%{_waydroid_image_dir}
-unzip -o %{SOURCE12} vendor.img -d %{buildroot}%{_waydroid_image_dir}
+unzip -oj %{SOURCE11} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/system.img
+
+unzip -oj %{SOURCE12} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/vendor.img
+
 %else
 # Default to lineage-18-vanilla
-unzip -o %{SOURCE10} system.img -d %{buildroot}%{_waydroid_image_dir}
-unzip -o %{SOURCE12} vendor.img -d %{buildroot}%{_waydroid_image_dir}
+unzip -oj %{SOURCE10} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/system.img
+
+unzip -oj %{SOURCE12} -d %{_tmpdir}
+mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/vendor.img
 %endif
+
+# Clean up the temporary directory
+rm -rf %{_tmpdir}
 
 %files
 %{_waydroid_image_dir}/system.img
