@@ -1,6 +1,6 @@
 # Automated Waydroid Image OBS Packager
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/itachi-re/waydroid-image-obs-packager/update-images.yml?style=flat-square)](https://github.com/itachi-re/waydroid-image-obs/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/itachi-re/waydroid-image-obs/update-images.yml?style=flat-square)](https://github.com/itachi-re/waydroid-image-obs/actions/workflows/update-images.yml)
 [![Open Build Service](https://img.shields.io/badge/OBS-Package-blue?style=flat-square&logo=openbuildservice)](https://build.opensuse.org/package/show/home:itachi_re/waydroid-image)
 [![build result](https://build.opensuse.org/projects/home:itachi_re/packages/waydroid-image/badge.svg?type=default)](https://build.opensuse.org/package/show/home:itachi_re/waydroid-image)
 
