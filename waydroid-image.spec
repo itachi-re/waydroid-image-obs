@@ -1,6 +1,6 @@
 # This file is auto-generated and updated by a GitHub Action.
 # Do not edit manually.
-# Auto-generated on: 2025-10-25T11:04:40.129176
+# Auto-generated on: 2025-10-25T12:28:55.545777
 
 %global _waydroid_image_dir %{_datadir}/waydroid-extra/images
 
@@ -32,6 +32,7 @@ License:        Apache-2.0
 URL:            https://waydro.id/
 BuildArch:      noarch
 BuildRequires:  unzip
+
 # Source URLs - these are replaced by the update script
 Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250823-VANILLA-waydroid_x86_64-system.zip/download
 Source1:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250809-GAPPS-waydroid_x86_64-system.zip/download
