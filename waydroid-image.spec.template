@@ -31,6 +31,7 @@ Summary:        %{flavor_descr} images for Waydroid
 License:        Apache-2.0
 URL:            https://waydro.id/
 BuildArch:      noarch
+BuildRequires:  unzip
 
 # Source URLs - these are replaced by the update script
 Source0:        @SYS_VANILLA_X86_64_20@
