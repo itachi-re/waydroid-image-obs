@@ -31,6 +31,7 @@ Summary:        %{flavor_descr} images for Waydroid
 License:        Apache-2.0
 URL:            https://waydro.id/
 BuildArch:      noarch
+BuildRequires:  unzip
 
 # Source URLs - these are replaced by the update script
 Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250823-VANILLA-waydroid_x86_64-system.zip/download
