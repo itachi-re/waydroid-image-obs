@@ -34,19 +34,20 @@ BuildArch:      noarch
 BuildRequires:  unzip
 
 # Source URLs - these are replaced by the update script
-Source0:        @SYS_VANILLA_X86_64_20@
-Source1:        @SYS_GAPPS_X86_64_20@
-Source2:        @VENDOR_X86_64_20@
-Source3:        @SYS_VANILLA_ARM64_20@
-Source4:        @SYS_GAPPS_ARM64_20@
-Source5:        @VENDOR_ARM64_20@
+# We add #/filename.zip to give each download a unique name
+Source0:        @SYS_VANILLA_X86_64_20@#/system-20-vanilla-x86_64.zip
+Source1:        @SYS_GAPPS_X86_64_20@#/system-20-gapps-x86_64.zip
+Source2:        @VENDOR_X86_64_20@#/vendor-20-x86_64.zip
+Source3:        @SYS_VANILLA_ARM64_20@#/system-20-vanilla-arm64.zip
+Source4:        @SYS_GAPPS_ARM64_20@#/system-20-gapps-arm64.zip
+Source5:        @VENDOR_ARM64_20@#/vendor-20-arm64.zip
 
-Source10:       @SYS_VANILLA_X86_64_18@
-Source11:       @SYS_GAPPS_X86_64_18@
-Source12:       @VENDOR_X86_64_18@
-Source13:       @SYS_VANILLA_ARM64_18@
-Source14:       @SYS_GAPPS_ARM64_18@
-Source15:       @VENDOR_ARM64_18@
+Source10:       @SYS_VANILLA_X86_64_18@#/system-18-vanilla-x86_64.zip
+Source11:       @SYS_GAPPS_X86_64_18@#/system-18-gapps-x86_64.zip
+Source12:       @VENDOR_X86_64_18@#/vendor-18-x86_64.zip
+Source13:       @SYS_VANILLA_ARM64_18@#/system-18-vanilla-arm64.zip
+Source14:       @SYS_GAPPS_ARM64_18@#/system-18-gapps-arm64.zip
+Source15:       @VENDOR_ARM64_18@#/vendor-18-arm64.zip
 
 %description
 %{summary}.
@@ -102,6 +103,9 @@ mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/vendor.img
 rm -rf %{_tmpdir}
 
 %files
+# Add %dir entries to own the directories
+%dir %{_datadir}/waydroid-extra
+%dir %{_waydroid_image_dir}
 %{_waydroid_image_dir}/system.img
 %{_waydroid_image_dir}/vendor.img
 
