@@ -1,6 +1,6 @@
 # This file is auto-generated and updated by a GitHub Action.
 # Do not edit manually.
-# Auto-generated on: 2025-10-26T03:12:41.812524
+# Auto-generated on: 2025-10-26T08:38:31.003782
 
 %global _waydroid_image_dir %{_datadir}/waydroid-extra/images
 
@@ -34,19 +34,20 @@ BuildArch:      noarch
 BuildRequires:  unzip
 
 # Source URLs - these are replaced by the update script
-Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250823-VANILLA-waydroid_x86_64-system.zip/download
-Source1:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250809-GAPPS-waydroid_x86_64-system.zip/download
-Source2:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20250809-MAINLINE-waydroid_x86_64-vendor.zip/download
-Source3:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20251011-VANILLA-waydroid_arm64-system.zip/download
-Source4:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20250809-GAPPS-waydroid_arm64-system.zip/download
-Source5:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20250809-MAINLINE-waydroid_arm64-vendor.zip/download
+# We add #/filename.zip to give each download a unique name
+Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250823-VANILLA-waydroid_x86_64-system.zip/download#/system-20-vanilla-x86_64.zip
+Source1:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20250809-GAPPS-waydroid_x86_64-system.zip/download#/system-20-gapps-x86_64.zip
+Source2:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20250809-MAINLINE-waydroid_x86_64-vendor.zip/download#/vendor-20-x86_64.zip
+Source3:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20251011-VANILLA-waydroid_arm64-system.zip/download#/system-20-vanilla-arm64.zip
+Source4:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20250809-GAPPS-waydroid_arm64-system.zip/download#/system-20-gapps-arm64.zip
+Source5:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20250809-MAINLINE-waydroid_arm64-vendor.zip/download#/vendor-20-arm64.zip
 
-Source10:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-VANILLA-waydroid_x86_64-system.zip/download
-Source11:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-GAPPS-waydroid_x86_64-system.zip/download
-Source12:       https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-18.1-20250628-MAINLINE-waydroid_x86_64-vendor.zip/download
-Source13:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-VANILLA-waydroid_arm64-system.zip/download
-Source14:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-GAPPS-waydroid_arm64-system.zip/download
-Source15:       https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-18.1-20250628-MAINLINE-waydroid_arm64-vendor.zip/download
+Source10:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-VANILLA-waydroid_x86_64-system.zip/download#/system-18-vanilla-x86_64.zip
+Source11:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-GAPPS-waydroid_x86_64-system.zip/download#/system-18-gapps-x86_64.zip
+Source12:       https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-18.1-20250628-MAINLINE-waydroid_x86_64-vendor.zip/download#/vendor-18-x86_64.zip
+Source13:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-VANILLA-waydroid_arm64-system.zip/download#/system-18-vanilla-arm64.zip
+Source14:       https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-GAPPS-waydroid_arm64-system.zip/download#/system-18-gapps-arm64.zip
+Source15:       https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-18.1-20250628-MAINLINE-waydroid_arm64-vendor.zip/download#/vendor-18-arm64.zip
 
 %description
 %{summary}.
@@ -102,6 +103,9 @@ mv %{_tmpdir}/*.img %{buildroot}%{_waydroid_image_dir}/vendor.img
 rm -rf %{_tmpdir}
 
 %files
+# Add %dir entries to own the directories
+%dir %{_datadir}/waydroid-extra
+%dir %{_waydroid_image_dir}
 %{_waydroid_image_dir}/system.img
 %{_waydroid_image_dir}/vendor.img
 
