@@ -1,17 +1,17 @@
 {
-  "version": "20260302",
-  "timestamp": "2026-03-12T04:02:03.440700",
+  "version": "20260312",
+  "timestamp": "2026-03-13T03:59:49.598737",
   "urls": {
-    "SYS_VANILLA_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260302-VANILLA-waydroid_x86_64-system.zip/download",
-    "SYS_GAPPS_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260302-GAPPS-waydroid_x86_64-system.zip/download",
-    "SYS_VANILLA_ARM64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260301-VANILLA-waydroid_arm64-system.zip/download",
-    "SYS_GAPPS_ARM64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260301-GAPPS-waydroid_arm64-system.zip/download",
+    "SYS_VANILLA_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260312-VANILLA-waydroid_x86_64-system.zip/download",
+    "SYS_GAPPS_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260312-GAPPS-waydroid_x86_64-system.zip/download",
+    "SYS_VANILLA_ARM64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260312-VANILLA-waydroid_arm64-system.zip/download",
+    "SYS_GAPPS_ARM64_20": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260312-GAPPS-waydroid_arm64-system.zip/download",
     "SYS_VANILLA_X86_64_18": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-VANILLA-waydroid_x86_64-system.zip/download",
     "SYS_GAPPS_X86_64_18": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-18.1-20250628-GAPPS-waydroid_x86_64-system.zip/download",
     "SYS_VANILLA_ARM64_18": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-VANILLA-waydroid_arm64-system.zip/download",
     "SYS_GAPPS_ARM64_18": "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-18.1-20250628-GAPPS-waydroid_arm64-system.zip/download",
-    "VENDOR_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20260302-MAINLINE-waydroid_x86_64-vendor.zip/download",
-    "VENDOR_ARM64_20": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20260301-MAINLINE-waydroid_arm64-vendor.zip/download",
+    "VENDOR_X86_64_20": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20260312-MAINLINE-waydroid_x86_64-vendor.zip/download",
+    "VENDOR_ARM64_20": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20260312-MAINLINE-waydroid_arm64-vendor.zip/download",
     "VENDOR_X86_64_18": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-18.1-20250628-MAINLINE-waydroid_x86_64-vendor.zip/download",
     "VENDOR_ARM64_18": "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-18.1-20250628-MAINLINE-waydroid_arm64-vendor.zip/download"
   }
