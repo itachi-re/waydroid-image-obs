@@ -1,6 +1,6 @@
 # This file is auto-generated and updated by a GitHub Action.
 # Do not edit manually.
-# Auto-generated on: 2026-04-03T04:15:57.389545
+# Auto-generated on: 2026-04-04T04:03:52.912750
 
 %global _waydroid_image_dir %{_datadir}/waydroid-extra/images
 
@@ -35,9 +35,9 @@ BuildRequires:  unzip
 
 # Source URLs - these are replaced by the update script
 # We add #/filename.zip to give each download a unique name
-Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260312-VANILLA-waydroid_x86_64-system.zip/download#/system-20-vanilla-x86_64.zip
-Source1:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260312-GAPPS-waydroid_x86_64-system.zip/download#/system-20-gapps-x86_64.zip
-Source2:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20260312-MAINLINE-waydroid_x86_64-vendor.zip/download#/vendor-20-x86_64.zip
+Source0:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260403-VANILLA-waydroid_x86_64-system.zip/download#/system-20-vanilla-x86_64.zip
+Source1:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260403-GAPPS-waydroid_x86_64-system.zip/download#/system-20-gapps-x86_64.zip
+Source2:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20260403-MAINLINE-waydroid_x86_64-vendor.zip/download#/vendor-20-x86_64.zip
 Source3:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260403-VANILLA-waydroid_arm64-system.zip/download#/system-20-vanilla-arm64.zip
 Source4:        https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_arm64/lineage-20.0-20260403-GAPPS-waydroid_arm64-system.zip/download#/system-20-gapps-arm64.zip
 Source5:        https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_arm64/lineage-20.0-20260403-MAINLINE-waydroid_arm64-vendor.zip/download#/vendor-20-arm64.zip
