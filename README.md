@@ -8,7 +8,7 @@ This project automatically builds and packages the latest [Waydroid](https://way
 
 ## ✨ Features
 
-- **Automated Updates**: Daily checks for new Waydroid image releases
+- **Automated Updates**: checks every two weeks for new Waydroid image releases
 - **Multi-Flavor Support**: Builds packages for multiple Android variants and GApps configurations
 - **OBS Integration**: Seamless integration with Open Build Service for automated package building
 - **Version Tracking**: Automatic version numbering based on image release dates
@@ -56,7 +56,7 @@ The `_service` file configures OBS to:
 .
 ├── .github/
 │   └── workflows/
-│       └── update-images.yml          # Daily update automation
+│       └── update-images.yml          # weekly update automation
 ├── waydroid-image.spec                # RPM spec file template
 ├── _multibuild                        # OBS multi-flavor configuration
 ├── _service                           # OBS service definitions
